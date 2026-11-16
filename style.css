@@ -959,7 +959,7 @@ body {
     box-shadow:
         0 0 14px 2px var(--active-glow, rgba(15, 23, 42, 0.3)),
         0 4px 12px rgba(15, 23, 42, 0.16);
-    animation: pawnBtnPulse 1.2s ease-in-out infinite;
+    animation: pawnBtnPulse 0.8s ease-in-out infinite;
 }
 
 @keyframes pawnBtnPulse {
@@ -968,7 +968,7 @@ body {
         transform: scale(1);
     }
     50% {
-        transform: scale(1.08);
+        transform: scale(1.05);
     }
 }
 
@@ -1044,7 +1044,7 @@ body {
 }
 
 .dice.blink {
-    animation: playerDiceBlink 2.2s linear infinite;
+    animation: playerDiceBlink 2s linear infinite;
     box-shadow:
         0 0 18px 2px var(--active-glow, rgba(15, 23, 42, 0.25)),
         0 6px 20px rgba(15, 23, 42, 0.18);
@@ -1052,21 +1052,13 @@ body {
 
 @keyframes playerDiceBlink {
     0%,
-    25%,
     50%,
-    75% {
-        transform: scale(1);
-    }
-    12.5%,
-    37.5%,
-    67.5% {
-        transform: scale(1.05);
-    }
-    87.5% {
-        transform: scale(1.05);
-    }
     100% {
         transform: scale(1);
+    }
+    25%,
+    75% {
+        transform: scale(1.08);
     }
 }
 
