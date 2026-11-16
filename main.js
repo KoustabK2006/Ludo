@@ -25,6 +25,7 @@ const tokenShapes = [
     "fa-solid fa-crown",
 ];
 
+<<<<<<< HEAD
 const THEME_COLORS = {
     red: {
         solid: "#ef4444",
@@ -75,6 +76,27 @@ const RGBPopUpColors = [
     THEME_COLORS.yellow.popup,
     THEME_COLORS.blue.popup,
     THEME_COLORS.green.popup,
+=======
+const RGBPlayerColors = [
+    "rgba(255, 20, 20, 0.2)",
+    "rgba(255, 220, 20, 0.2)",
+    "rgba(40, 50, 255, 0.2)",
+    "rgba(20, 255, 70, 0.2)",
+];
+
+const RGBDiceColors = [
+    "rgba(255, 50, 50, 0.95)",
+    "rgba(255, 220, 50, 0.95)",
+    "rgba(50, 50, 255, 0.95)",
+    "rgba(50, 255, 70, 0.95)",
+];
+
+const RGBPopUpColors = [
+    "rgba(255, 235, 235, 0.4)",
+    "rgba(255, 252, 225, 0.4)",
+    "rgba(232, 240, 255, 0.4)",
+    "rgba(232, 255, 238, 0.4)",
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
 ];
 
 let killedPawns = [0, 0, 0, 0];
@@ -91,29 +113,49 @@ const defaultPawnProperties = {
     red: {
         classList: "fa-solid fa-heart",
         style: {
+<<<<<<< HEAD
             color: THEME_COLORS.red.solid,
             filter: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5))",
+=======
+            color: "#ff0000",
+            filter: "drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.75))",
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
         },
     },
     yellow: {
         classList: "fa-solid fa-crown",
         style: {
+<<<<<<< HEAD
             color: THEME_COLORS.yellow.solid,
             filter: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.55))",
+=======
+            color: "#ffbf00",
+            filter: "drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.9))",
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
         },
     },
     blue: {
         classList: "fa-regular fa-paper-plane",
         style: {
+<<<<<<< HEAD
             color: THEME_COLORS.blue.solid,
             filter: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5))",
+=======
+            color: "#4040ff",
+            filter: "drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.75))",
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
         },
     },
     green: {
         classList: "fa-solid fa-puzzle-piece",
         style: {
+<<<<<<< HEAD
             color: THEME_COLORS.green.solid,
             filter: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5))",
+=======
+            color: "#40ff40",
+            filter: "drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.75))",
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
         },
     },
 };
@@ -233,17 +275,21 @@ function handleDiceRoll() {
     rolledNumber = LB.roll();
     hasRolled = true;
 
+<<<<<<< HEAD
     // Trigger visual roll effect on central dice
     if (centerDiceBtn) {
         centerDiceBtn.classList.add("rolling");
         setTimeout(() => centerDiceBtn.classList.remove("rolling"), 350);
     }
 
+=======
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
     const faceClass =
         rolledNumber === 18
             ? "fa-solid fa-dice-one"
             : `fa-solid fa-dice-${diceWords[rolledNumber - 1]}`;
 
+<<<<<<< HEAD
     if (playerDiceIcon) {
         playerDiceIcon.className = faceClass;
         playerDiceIcon.style.color = RGBDiceColors[currentPlayerId - 1];
@@ -252,6 +298,10 @@ function handleDiceRoll() {
         centerDiceIcon.className = faceClass;
         centerDiceIcon.style.color = RGBDiceColors[currentPlayerId - 1];
     }
+=======
+    if (playerDiceIcon) playerDiceIcon.className = faceClass;
+    if (centerDiceIcon) centerDiceIcon.className = faceClass;
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
 
     const currentPieces = Object.values(LB.pieces[currentPlayerId]);
     movablePawns = currentPieces.map((pawn) =>
@@ -273,6 +323,10 @@ function handleDiceRoll() {
         wastedTurns[oldTurn.playerId - 1] += 1;
 
         if (playerDiceBtn) playerDiceBtn.classList.remove("blink");
+<<<<<<< HEAD
+=======
+        if (playerDiceIcon) playerDiceIcon.style.color = "#64748b";
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
         if (centerDiceBtn) centerDiceBtn.classList.remove("blink");
 
         LB.nextTurn();
@@ -297,6 +351,10 @@ function handleDiceRoll() {
 
     // Stop dice blink on both dices and highlight movable pawns
     if (playerDiceBtn) playerDiceBtn.classList.remove("blink");
+<<<<<<< HEAD
+=======
+    if (playerDiceIcon) playerDiceIcon.style.color = "#64748b";
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
     if (centerDiceBtn) centerDiceBtn.classList.remove("blink");
     if (centerDiceIcon) {
         centerDiceIcon.style.color = RGBDiceColors[oldTurn.playerId - 1];
@@ -313,9 +371,13 @@ function handleDiceRoll() {
                         RGBDiceColors[LB.currentTurn.playerId - 1];
             } else {
                 btn.classList.remove("blink");
+<<<<<<< HEAD
                 if (btnIcon)
                     btnIcon.style.color =
                         RGBDiceColors[LB.currentTurn.playerId - 1];
+=======
+                if (btnIcon) btnIcon.style.color = "#3b4b65";
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
             }
         });
 
@@ -400,7 +462,11 @@ function executePawnMove(color, finalPawnName) {
     document.querySelectorAll(`#player${playerId} .pawn-btn`).forEach((btn) => {
         btn.classList.remove("blink");
         const icon = btn.querySelector("i");
+<<<<<<< HEAD
         if (icon) icon.style.color = RGBDiceColors[playerId - 1];
+=======
+        if (icon) icon.style.color = "#3b4b65";
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
     });
 
     if (LB.currentTurn.availableTurns === 0) {
@@ -446,22 +512,33 @@ function highlightActivePlayer(oldPlayerId, newPlayerId, newColor) {
 
         if (id === newPlayerId) {
             panel.style.backgroundColor = RGBPlayerColors[id - 1];
+<<<<<<< HEAD
             panel.style.setProperty("--active-glow", THEME_COLORS[c].glow);
             panel.style.setProperty("--active-solid", THEME_COLORS[c].solid);
+=======
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
             panel.classList.add("active-turn");
             if (diceBtn) diceBtn.classList.add("blink");
             if (diceIcon) diceIcon.style.color = RGBDiceColors[id - 1];
         } else {
+<<<<<<< HEAD
             panel.style.backgroundColor = "";
             panel.classList.remove("active-turn");
             if (diceBtn) diceBtn.classList.remove("blink");
             if (diceIcon) diceIcon.style.color = RGBDiceColors[id - 1];
+=======
+            panel.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+            panel.classList.remove("active-turn");
+            if (diceBtn) diceBtn.classList.remove("blink");
+            if (diceIcon) diceIcon.style.color = "#3b4b65";
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
         }
     }
 
     // Sync universal central dice color and animation with the active player
     const centerDiceBtn = document.getElementById("center-dice");
     const centerDiceIcon = centerDiceBtn?.querySelector("i");
+<<<<<<< HEAD
     if (centerDiceBtn && newPlayerId && newColor) {
         centerDiceBtn.classList.add("blink");
         centerDiceBtn.style.borderColor = THEME_COLORS[newColor].solid;
@@ -469,6 +546,13 @@ function highlightActivePlayer(oldPlayerId, newPlayerId, newColor) {
         centerDiceBtn.style.setProperty("--active-solid", THEME_COLORS[newColor].solid);
         if (centerDiceIcon) {
             centerDiceIcon.style.color = THEME_COLORS[newColor].solid;
+=======
+    if (centerDiceBtn && newPlayerId) {
+        centerDiceBtn.classList.add("blink");
+        centerDiceBtn.style.borderColor = RGBDiceColors[newPlayerId - 1];
+        if (centerDiceIcon) {
+            centerDiceIcon.style.color = RGBDiceColors[newPlayerId - 1];
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
         }
     }
 }
@@ -685,8 +769,13 @@ function gameOver(board) {
             const pScore = score[entry.playerId - 1];
             const iconClass = pawnProperties[entry.color].classList;
             return `
+<<<<<<< HEAD
                 <div class="leaderboard-item" style="border-color: ${THEME_COLORS[entry.color].solid}">
                     <span>${medals[entry.rank - 1] || `#${entry.rank}`} — Player ${entry.playerId} (${capitalize(entry.color)}) <i class="${iconClass}" style="color: ${THEME_COLORS[entry.color].solid}"></i></span>
+=======
+                <div class="leaderboard-item" style="border-color: ${RGBDiceColors[entry.playerId - 1]}">
+                    <span>${medals[entry.rank - 1] || `#${entry.rank}`} — Player ${entry.playerId} (${capitalize(entry.color)}) <i class="${iconClass}"></i></span>
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
                     <span>${pScore} pts</span>
                 </div>
             `;
@@ -726,7 +815,11 @@ document.getElementById("play-again-btn").addEventListener("click", () => {
     for (let id = 1; id <= 4; id++) {
         updateTurnsRollsScore(id);
         const panel = document.getElementById(`player${id}`);
+<<<<<<< HEAD
         panel.style.backgroundColor = "";
+=======
+        panel.style.backgroundColor = "rgba(255, 255, 255, 0.78)";
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
         panel.classList.remove("active-turn");
 
         const infoBtn = document.getElementById(`player-info${id}`);
@@ -739,12 +832,21 @@ document.getElementById("play-again-btn").addEventListener("click", () => {
         const diceIcon = diceBtn?.querySelector("i");
         if (diceBtn) diceBtn.classList.remove("blink");
         if (diceIcon) {
+<<<<<<< HEAD
             diceIcon.className = "fa-solid fa-dice";
             diceIcon.style.color = THEME_COLORS[colors[id - 1]].solid;
         }
 
         panel.querySelectorAll(".pawn-btn i").forEach((icon) => {
             icon.style.color = THEME_COLORS[colors[id - 1]].solid;
+=======
+            diceIcon.className = "fa-solid fa-square";
+            diceIcon.style.color = "#64748b";
+        }
+
+        panel.querySelectorAll(".pawn-btn i").forEach((icon) => {
+            icon.style.color = "#3b4b65";
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
         });
     }
 
@@ -754,12 +856,20 @@ document.getElementById("play-again-btn").addEventListener("click", () => {
     if (centerDiceBtn) {
         centerDiceBtn.style.display = "none";
         centerDiceBtn.classList.remove("blink");
+<<<<<<< HEAD
         centerDiceBtn.classList.remove("rolling");
         centerDiceBtn.style.borderColor = "";
     }
     if (centerDiceIcon) {
         centerDiceIcon.className = "fa-solid fa-dice";
         centerDiceIcon.style.color = "";
+=======
+        centerDiceBtn.style.borderColor = "rgba(255, 255, 255, 0.75)";
+    }
+    if (centerDiceIcon) {
+        centerDiceIcon.className = "fa-solid fa-square";
+        centerDiceIcon.style.color = "#3b4b65";
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
     }
 
     updateActivePlayerCards(selectedPlayerCount);
@@ -801,10 +911,14 @@ function activateEvents() {
         const centerDiceBtn = document.getElementById("center-dice");
         const centerDiceIcon = centerDiceBtn?.querySelector("i");
         if (centerDiceBtn) centerDiceBtn.style.display = "flex";
+<<<<<<< HEAD
         if (centerDiceIcon) {
             centerDiceIcon.className = "fa-solid fa-dice";
             centerDiceIcon.style.color = THEME_COLORS[ludoBoard.currentTurn.color].solid;
         }
+=======
+        if (centerDiceIcon) centerDiceIcon.className = "fa-solid fa-square";
+>>>>>>> cebabcde65a61dbce55ed409f8a746b7568274af
 
         // Hide player count selector & pre-game pawn shape picker
         const countSelector = document.getElementById("player-count-selector");
