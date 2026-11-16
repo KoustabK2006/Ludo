@@ -1060,13 +1060,13 @@ body {
     12.5%,
     37.5%,
     67.5% {
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
     87.5% {
-        transform: rotateZ(180deg) scale(1.1);
+        transform: scale(1.05);
     }
     100% {
-        transform: rotateZ(360deg) scale(1);
+        transform: scale(1);
     }
 }
 
