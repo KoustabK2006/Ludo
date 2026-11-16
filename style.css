@@ -33,8 +33,8 @@
     --theme-yellow: #f59e0b;
     --theme-yellow-rgb: 245, 158, 11;
 
-    --theme-blue: #2563eb;
-    --theme-blue-rgb: 37, 99, 235;
+    --theme-blue: #3125a1;
+    --theme-blue-rgb: 37, 12, 235;
 
     --theme-green: #10b981;
     --theme-green-rgb: 16, 185, 129;
@@ -55,18 +55,16 @@
 body {
     width: 100%;
     min-height: 100vh;
-    background-color: #0f172a;
+    background-color: #424242;
     background-image:
         radial-gradient(
             ellipse at 50% 12%,
             rgba(30, 41, 59, 0.45),
             rgba(15, 23, 42, 0.85)
         ),
-        linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.65)),
-        url("background.jpg");
+        linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.65));
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     overflow-x: hidden;
     display: flex;
     justify-content: center;
@@ -137,8 +135,6 @@ body {
         rgba(255, 255, 255, 0.32),
         rgba(255, 255, 255, 0.16)
     );
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
     border: 1px solid var(--glass-border-light);
     border-top: 1.5px solid rgba(255, 255, 255, 0.85);
     border-left: 1.5px solid rgba(255, 255, 255, 0.75);
@@ -164,8 +160,6 @@ body {
         rgba(255, 255, 255, 0.3),
         rgba(255, 255, 255, 0.14)
     );
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
     border: 1px solid var(--glass-border-light);
     border-top: 1.5px solid rgba(255, 255, 255, 0.8);
     box-shadow:
@@ -229,8 +223,6 @@ body {
         rgba(255, 255, 255, 0.22),
         rgba(255, 255, 255, 0.08)
     );
-    backdrop-filter: blur(var(--glass-blur)) saturate(190%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(190%);
     border: 2px solid rgba(255, 255, 255, 0.7);
     border-top: 2px solid rgba(255, 255, 255, 0.9);
     border-left: 2px solid rgba(255, 255, 255, 0.85);
@@ -268,8 +260,6 @@ body {
     place-items: center;
     padding: calc(var(--cell-size) * 0.65);
     gap: calc(var(--cell-size) * 0.5);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
 #room1 {
@@ -321,11 +311,9 @@ body {
     height: calc(var(--cell-size) * 1.5);
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.45),
-        rgba(255, 255, 255, 0.18)
+        rgba(255, 255, 255, 0.36),
+        rgba(255, 255, 255, 0.1)
     );
-    backdrop-filter: blur(calc(var(--glass-blur) * 0.75));
-    -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.75));
     border: 1.5px solid rgba(255, 255, 255, 0.85);
     box-shadow:
         inset 0 3px 6px rgba(15, 23, 42, 0.14),
@@ -358,8 +346,6 @@ body {
     width: var(--cell-size);
     height: var(--cell-size);
     background-color: rgba(255, 255, 255, 0.22);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(15, 23, 42, 0.18);
     border-radius: calc(var(--cell-size) * 0.12);
     display: flex;
@@ -429,8 +415,6 @@ body {
     justify-content: center;
     align-items: center;
     background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
 /* Subtle dark radial pedestal vignette to prevent center brightness washout */
@@ -538,8 +522,6 @@ body {
         rgba(20, 28, 44, 0.94),
         rgba(15, 23, 42, 0.98)
     );
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 2px solid rgba(255, 255, 255, 0.8);
     border-radius: calc(var(--cell-size) * 0.32);
     box-shadow:
@@ -627,15 +609,15 @@ body {
     font-weight: 800;
     font-size: clamp(18px, calc(var(--cell-size) * 0.62), 40px);
     letter-spacing: 2px;
-    border: 2px solid rgba(255, 255, 255, 0.75);
+    border: 0.5px solid rgba(255, 255, 255, 0.75);
     border-radius: 50%;
     background: radial-gradient(
         circle,
         rgba(255, 255, 255, 0.4) 0%,
         rgba(255, 255, 255, 0.12) 100%
     );
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     box-shadow:
         0 10px 32px rgba(15, 23, 42, 0.28),
         inset 0 0 16px rgba(255, 255, 255, 0.7);
@@ -770,8 +752,6 @@ body {
         rgba(255, 255, 255, 0.28),
         rgba(255, 255, 255, 0.12)
     );
-    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
     border: 1px solid var(--glass-border-light);
     border-top: 1.5px solid rgba(255, 255, 255, 0.85);
     border-left: 1.5px solid rgba(255, 255, 255, 0.75);
@@ -921,8 +901,6 @@ body {
     height: 46px;
     border: 1px solid rgba(255, 255, 255, 0.65);
     background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(calc(var(--glass-blur) * 0.75));
-    -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.75));
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
     cursor: pointer;
@@ -1004,8 +982,6 @@ body {
         rgba(255, 255, 255, 0.45),
         rgba(255, 255, 255, 0.2)
     );
-    backdrop-filter: blur(calc(var(--glass-blur) * 0.75));
-    -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.75));
     border-radius: 16px;
     box-shadow:
         0 6px 18px rgba(15, 23, 42, 0.12),
@@ -1078,8 +1054,6 @@ body {
     height: 38px;
     border: 1px solid rgba(255, 255, 255, 0.6);
     background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(calc(var(--glass-blur) * 0.75));
-    -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.75));
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(15, 23, 42, 0.06);
     cursor: pointer;
@@ -1131,8 +1105,8 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(15, 23, 42, 0.55);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     display: none;
     justify-content: center;
     align-items: center;
@@ -1322,7 +1296,7 @@ body {
 
 @media (max-width: 960px) {
     :root {
-        --board-size: min(94vw, 47vh, 460px);
+        --board-size: min(92vw, 53vh, 460px);
     }
 
     body {
