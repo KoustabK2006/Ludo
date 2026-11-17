@@ -774,9 +774,10 @@ document.getElementById("play-again-btn").addEventListener("click", () => {
     updateActivePlayerCards(selectedPlayerCount);
 
     const startBtn = document.getElementById("start-btn");
-    startBtn.style.display = "block";
+    startBtn.style.display = "flex";
     startBtn.style.opacity = "1";
-    startBtn.style.backdropFilter = "blur(15px)";
+    startBtn.style.backdropFilter = "blur(18px) saturate(180%)";
+    startBtn.style.webkitBackdropFilter = "blur(18px) saturate(180%)";
 
     const countSelector = document.getElementById("player-count-selector");
     if (countSelector) countSelector.classList.remove("hidden-selector");
@@ -797,6 +798,7 @@ function activateEvents() {
 
         const startBtn = document.getElementById("start-btn");
         startBtn.style.backdropFilter = "blur(0px)";
+        startBtn.style.webkitBackdropFilter = "blur(0px)";
         startBtn.style.opacity = "0";
         setTimeout(() => {
             startBtn.style.display = "none";
