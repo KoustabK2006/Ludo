@@ -1,10 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap");
 
-/* =========================================================
-   Global Reset & Base Variables
-   ========================================================= */
-
 * {
     margin: 0;
     padding: 0;
@@ -17,10 +13,6 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-/* =========================================================
-   Live Atmospheric Dual-Tone Background Custom Properties
-   ========================================================= */
-
 @property --bg-hue {
     syntax: "<number>";
     inherits: true;
@@ -28,25 +20,10 @@
 }
 
 :root {
-    /* Dynamic Hue Variable (Cycles from 0 to 255 over time) */
     --bg-hue: 0;
-
-    /* Scaled Hue in Degrees (0 - 360deg mapped accurately from 0 - 255) */
     --bg-hue-deg: calc(var(--bg-hue) * 360deg / 255);
-
-    /* Primary Dual-Tone Colors: Luminous Light Core to Deep Midnight Outer */
-    --bg-tone-light: hsla(
-        calc(var(--bg-hue) * 360 / 255),
-        84%,
-        68%,
-        0.52
-    );
-    --bg-tone-mid: hsla(
-        calc((var(--bg-hue) * 360 / 255) + 16),
-        80%,
-        38%,
-        0.72
-    );
+    --bg-tone-light: hsla(calc(var(--bg-hue) * 360 / 255), 84%, 68%, 0.52);
+    --bg-tone-mid: hsla(calc((var(--bg-hue) * 360 / 255) + 16), 80%, 38%, 0.72);
     --bg-tone-dark: hsla(
         calc((var(--bg-hue) * 360 / 255) + 32),
         82%,
@@ -54,7 +31,6 @@
         0.94
     );
 
-    /* Secondary Dual-Tone Colors: Counter-Orbital Harmonic Bloom */
     --bg-tone-light-2: hsla(
         calc((var(--bg-hue) * 360 / 255) + 48),
         86%,
@@ -121,10 +97,6 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* =========================================================
-   Live Atmospheric Dual-Tone Background & Revolving Ellipse
-   ========================================================= */
-
 .live-bg-container {
     position: fixed;
     inset: 0;
@@ -134,10 +106,9 @@ body {
     pointer-events: none;
     z-index: 0;
     background-color: #080c16;
-    animation: liveHueShiftCSS 75s linear infinite;
+    animation: liveHueShiftCSS 60s linear infinite;
 }
 
-/* Revolving Ellipse Layers (Hardware Accelerated) */
 .live-bg-ellipse {
     position: absolute;
     top: 50%;
@@ -149,7 +120,6 @@ body {
     will-change: transform;
 }
 
-/* Primary Revolving Dual-Tone Radial Ellipse */
 .live-bg-primary {
     background: radial-gradient(
         ellipse 65% 38% at 50% 50%,
@@ -161,7 +131,6 @@ body {
     animation: liveRevolvePrimary 38s linear infinite;
 }
 
-/* Secondary Revolving Harmonic Ellipse (Reverses & Blends) */
 .live-bg-secondary {
     background: radial-gradient(
         ellipse 38% 66% at 50% 50%,
@@ -175,7 +144,6 @@ body {
     animation: liveRevolveSecondary 52s linear infinite reverse;
 }
 
-/* Contrast Vignette & Protective Tint for Game Elements */
 .live-bg-vignette {
     position: absolute;
     inset: 0;
@@ -192,7 +160,6 @@ body {
     pointer-events: none;
 }
 
-/* Primary Ellipse Revolution + Organic Pulsing Breathing Effect */
 @keyframes liveRevolvePrimary {
     0% {
         transform: translate(-50%, -50%) rotate(0deg) scale(1);
@@ -211,7 +178,6 @@ body {
     }
 }
 
-/* Secondary Counter-Revolving Ellipse (Harmonic Orbital Drift) */
 @keyframes liveRevolveSecondary {
     0% {
         transform: translate(-50%, -50%) rotate(0deg) scale(1);
@@ -227,7 +193,6 @@ body {
     }
 }
 
-/* CSS Fallback Keyframe for Variable Hue Changing from 0 to 255 */
 @keyframes liveHueShiftCSS {
     0% {
         --bg-hue: 0;
@@ -236,10 +201,6 @@ body {
         --bg-hue: 255;
     }
 }
-
-/* =========================================================
-   Main Responsive Game Layout (3 Columns Desktop)
-   ========================================================= */
 
 .game-layout {
     position: relative;
@@ -279,10 +240,6 @@ body {
 .players-right {
     order: 3;
 }
-
-/* =========================================================
-   Top Bar: Status Banner + Player Count Selector (2P/3P/4P)
-   ========================================================= */
 
 .top-bar {
     width: var(--board-size);
@@ -372,10 +329,6 @@ body {
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.35);
 }
 
-/* =========================================================
-   15x15 Ludo Board Framework
-   ========================================================= */
-
 .container {
     display: flex;
     justify-content: center;
@@ -423,7 +376,6 @@ body {
     flex-direction: column;
 }
 
-/* Board Rooms (4 Distinct Quadrants) */
 .rooms {
     width: calc(var(--cell-size) * 6);
     height: calc(var(--cell-size) * 6);
@@ -497,7 +449,6 @@ body {
     transition: transform 180ms ease;
 }
 
-/* Path Columns & Rows */
 .path-clm {
     width: var(--cell-size);
     height: calc(var(--cell-size) * 6);
@@ -534,7 +485,6 @@ body {
     border-color: rgba(255, 255, 255, 0.45);
 }
 
-/* Home Paths & Colored Starting Pixels */
 #path2 #pxl100,
 #path2 #pxl101,
 #path2 #pxl102,
@@ -575,10 +525,6 @@ body {
     border-color: rgba(var(--theme-blue-rgb), 0.45);
 }
 
-/* =========================================================
-   Center Goal Triangles, Contrasting Central Dice & START Button
-   ========================================================= */
-
 .center {
     width: calc(var(--cell-size) * 3);
     height: calc(var(--cell-size) * 3);
@@ -589,7 +535,6 @@ body {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Subtle dark radial pedestal vignette to prevent center brightness washout */
 .center::before {
     content: "";
     position: absolute;
@@ -649,7 +594,6 @@ body {
     left: 0;
 }
 
-/* Finished Pawns Inside Center Goal Triangles */
 .center span .pawn-stack {
     position: absolute;
     width: calc(var(--cell-size) * 1.15);
@@ -677,10 +621,6 @@ body {
     right: calc(var(--half-center) * 0.25);
     top: calc(var(--cell-size) * -0.38);
 }
-
-/* =========================================================
-   Universal Standout Central Dice (High Contrast Obsidian Body)
-   ========================================================= */
 
 .center-dice {
     position: absolute;
@@ -771,7 +711,6 @@ body {
     }
 }
 
-/* Full-Home START Button */
 #start-btn {
     position: absolute;
     inset: 0;
@@ -810,10 +749,6 @@ body {
         0 14px 40px rgba(15, 23, 42, 0.35),
         inset 0 0 20px rgba(255, 255, 255, 0.85);
 }
-
-/* =========================================================
-   Board Landmarks & Multi-Pawn Stack Layout
-   ========================================================= */
 
 .tile-landmark {
     position: absolute;
@@ -911,10 +846,6 @@ body {
         transform: scale(1.12);
     }
 }
-
-/* =========================================================
-   Player Control Panels (Refined Glassmorphism)
-   ========================================================= */
 
 .player {
     position: relative;
@@ -1015,7 +946,6 @@ body {
     border-top: 1px solid rgba(15, 23, 42, 0.14);
 }
 
-/* Player Statistics Info Button */
 .player-info {
     width: 32px;
     height: 32px;
@@ -1061,7 +991,6 @@ body {
     gap: 12px;
 }
 
-/* Pawns Selector Buttons */
 .pawns {
     width: 100%;
     display: grid;
@@ -1122,7 +1051,6 @@ body {
     }
 }
 
-/* Dice & Stats Row */
 .dice-stats-row {
     display: flex;
     align-items: center;
@@ -1143,7 +1071,6 @@ body {
     letter-spacing: 0.2px;
 }
 
-/* Player Controller Dice */
 .dice {
     width: clamp(84px, 7.5vw, 120px);
     height: clamp(80px, 7.2vw, 112px);
@@ -1210,7 +1137,6 @@ body {
     }
 }
 
-/* Pre-Game Piece Token Customizer */
 .pieces {
     width: 100%;
     display: grid;
@@ -1266,10 +1192,6 @@ body {
 #player4 .pieces button i {
     color: var(--theme-green);
 }
-
-/* =========================================================
-   Statistics & Victory Modals Overlay
-   ========================================================= */
 
 .pop-up {
     position: fixed;
@@ -1462,10 +1384,6 @@ body {
     background: #1e293b;
 }
 
-/* =========================================================
-   Mobile / Phone Responsiveness: 2x2 Controller Pane
-   ========================================================= */
-
 @media (max-width: 1300px) {
     :root {
         --board-size: min(92vw, 53vh, 460px);
@@ -1518,33 +1436,30 @@ body {
         border-radius: 8px;
     }
 
-    /* Flatten columns to direct grid items for simple 2x2 mobile arrangement */
     .players-column {
         display: contents;
     }
 
-    /* 2x2 mobile layout matching board room quadrants */
     #player2 {
         grid-column: 1;
-        order: 2; /* Top-Left (Yellow) */
+        order: 2;
     }
 
     #player3 {
         grid-column: 2;
-        order: 3; /* Top-Right (Blue) */
+        order: 3;
     }
 
     #player1 {
         grid-column: 1;
-        order: 4; /* Bottom-Left (Red) */
+        order: 4;
     }
 
     #player4 {
         grid-column: 2;
-        order: 5; /* Bottom-Right (Green) */
+        order: 5;
     }
 
-    /* Compact Player Controller Pane on Phone */
     .player {
         padding: 8px 10px;
         gap: 6px;

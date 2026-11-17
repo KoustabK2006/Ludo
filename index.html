@@ -6,7 +6,6 @@
         <title>Ludo Game | @KK</title>
         <link rel="stylesheet" href="style.css" />
 
-        <!-- Font Awesome Linked -->
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -15,7 +14,6 @@
             referrerpolicy="no-referrer"
         />
 
-        <!-- Deterministic Script Loading -->
         <script src="./backend-logic/LudoVariables.js" defer></script>
         <script src="./backend-logic/LudoEventManager.js" defer></script>
         <script src="./backend-logic/LudoPiece.js" defer></script>
@@ -24,7 +22,6 @@
     </head>
 
     <body>
-        <!-- Live Atmospheric Dual-Tone Background Elements -->
         <div class="live-bg-container" aria-hidden="true">
             <div class="live-bg-ellipse live-bg-primary"></div>
             <div class="live-bg-ellipse live-bg-secondary"></div>
@@ -32,7 +29,6 @@
         </div>
 
         <main class="game-layout">
-            <!-- Left Players Column (Top-Left: Yellow, Bottom-Left: Red) -->
             <section class="players-column players-left">
                 <div
                     class="player"
@@ -241,9 +237,7 @@
                 </div>
             </section>
 
-            <!-- Center Board Section -->
             <section class="board-section">
-                <!-- Top Bar: Status Prompt + Player Count Selector -->
                 <div class="top-bar">
                     <div
                         class="status-banner"
@@ -369,7 +363,6 @@
                                 </div>
                             </div>
 
-                            <!-- Center Goal Triangles + Universal Central Dice + Full-Home START Button -->
                             <div class="center">
                                 <span class="tri1" id="pxl105"></span>
                                 <span class="tri2" id="pxl117"></span>
@@ -484,7 +477,6 @@
                 </div>
             </section>
 
-            <!-- Right Players Column (Top-Right: Blue, Bottom-Right: Green) -->
             <section class="players-column players-right">
                 <div
                     class="player"
@@ -690,7 +682,6 @@
             </section>
         </main>
 
-        <!-- Statistics & Victory Modals Overlay -->
         <div class="pop-up" id="modal-backdrop">
             <div class="info-container" id="pop-up1">
                 <button
@@ -880,7 +871,6 @@
                 </div>
             </div>
 
-            <!-- Game Over / Podium Modal -->
             <div class="win-container" id="win-container">
                 <h1><i class="fa-solid fa-trophy"></i> Match Results</h1>
                 <hr />

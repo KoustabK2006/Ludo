@@ -1,4 +1,5 @@
 // Ludo Game Mechanics & UI Controller
+
 let LB = null;
 let gameStarted = false;
 let selectedPlayerCount = 4;
@@ -134,7 +135,6 @@ function capitalize(str) {
 
 function getPlayersForCount(count) {
     if (count === 2) {
-        // Opposite corners for balanced 1v1 Ludo
         return [
             { playerId: 1, color: "red" },
             { playerId: 3, color: "blue" },
@@ -164,9 +164,7 @@ function updateActivePlayerCards(count) {
     }
 }
 
-// =========================================================
 // Player Count Selector & Pawn Icon Customizer
-// =========================================================
 
 document.querySelectorAll(".count-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -207,6 +205,7 @@ colors.forEach((color, colorIdx) => {
 });
 
 // Start Game Button
+
 document.getElementById("start-btn").addEventListener("click", () => {
     if (gameStarted) return;
     LEM.clear();
@@ -214,10 +213,6 @@ document.getElementById("start-btn").addEventListener("click", () => {
     LB = new LudoBoard();
     LB.init(getPlayersForCount(selectedPlayerCount));
 });
-
-// =========================================================
-// Unified Dice Roll Interaction (Controller Dice + Universal Central Dice)
-// =========================================================
 
 function handleDiceRoll() {
     if (!gameStarted || !LB || LB.isGameOver || hasRolled) return;
@@ -390,13 +385,11 @@ function executePawnMove(color, finalPawnName) {
 
     const oldTurn = { ...LB.currentTurn };
 
-    // Lock out duplicate clicks immediately while processing move
     hasRolled = false;
 
     pawn.move(rolledNumber);
     updateTurnsRollsScore(playerId);
 
-    // Reset pawn panel button animations
     document.querySelectorAll(`#player${playerId} .pawn-btn`).forEach((btn) => {
         btn.classList.remove("blink");
         const icon = btn.querySelector("i");
@@ -459,7 +452,6 @@ function highlightActivePlayer(oldPlayerId, newPlayerId, newColor) {
         }
     }
 
-    // Sync universal central dice color and animation with the active player
     const centerDiceBtn = document.getElementById("center-dice");
     const centerDiceIcon = centerDiceBtn?.querySelector("i");
     if (centerDiceBtn && newPlayerId && newColor) {
@@ -479,18 +471,14 @@ function highlightActivePlayer(oldPlayerId, newPlayerId, newColor) {
     }
 }
 
-// =========================================================
 // Full Board Renderer (Supports Multi-Pawn Stacks & Safe Tiles)
-// =========================================================
 
 function renderBoard() {
-    // 1. Clear all board tiles & home slots cleanly
     document.querySelectorAll(".pxls, .rooms > div").forEach((cell) => {
         cell.innerHTML = "";
         cell.classList.remove("safe-highlight");
     });
 
-    // 2. Group all active pieces by their board position
     const piecesByPos = {};
     if (gameStarted && LB) {
         for (const playerPieces of Object.values(LB.pieces)) {
@@ -502,7 +490,6 @@ function renderBoard() {
         }
     }
 
-    // 3. Draw Star & Safe House landmarks on the board
     starPoints.forEach((selector) => {
         const cell = document.querySelector(selector);
         if (!cell) return;
@@ -529,7 +516,6 @@ function renderBoard() {
         cell.appendChild(landmark);
     });
 
-    // 4. Render every pawn stack onto its target tile/home/goal cell
     for (const [posStr, entries] of Object.entries(piecesByPos)) {
         const cellId = `pxl${String(posStr).padStart(3, "0")}`;
         const cell = document.getElementById(cellId);
@@ -579,9 +565,7 @@ function updateTurnsRollsScore(playerId) {
     label.innerHTML = `Turns : ${allTurns[playerId - 1]}<br>Rolls : ${allRolls[playerId - 1]}<br>Score : ${score[playerId - 1]}`;
 }
 
-// =========================================================
 // Player Statistics & Victory Modals
-// =========================================================
 
 function updateStats(playerId) {
     let totalRolledValue = 0;
@@ -706,9 +690,7 @@ function gameOver(board) {
     );
 }
 
-// =========================================================
 // Reset / Play Again Flow
-// =========================================================
 
 document.getElementById("play-again-btn").addEventListener("click", () => {
     closeAllModals();
@@ -754,7 +736,6 @@ document.getElementById("play-again-btn").addEventListener("click", () => {
         });
     }
 
-    // Reset and hide universal central dice
     const centerDiceBtn = document.getElementById("center-dice");
     const centerDiceIcon = centerDiceBtn?.querySelector("i");
     if (centerDiceBtn) {
@@ -770,7 +751,6 @@ document.getElementById("play-again-btn").addEventListener("click", () => {
 
     updateActivePlayerCards(selectedPlayerCount);
 
-    // Restore full-home START button & top-bar player count selector
     const startBtn = document.getElementById("start-btn");
     startBtn.style.display = "block";
     startBtn.style.opacity = "1";
@@ -785,9 +765,7 @@ document.getElementById("play-again-btn").addEventListener("click", () => {
     );
 });
 
-// =========================================================
 // Event Manager Subscriptions
-// =========================================================
 
 function activateEvents() {
     LEM.on(LEMEvents.LudoBegin, (ludoBoard) => {
@@ -795,7 +773,6 @@ function activateEvents() {
         activatePawnButtons();
         renderBoard();
 
-        // Fade out full-home START button just like original
         const startBtn = document.getElementById("start-btn");
         startBtn.style.backdropFilter = "blur(0px)";
         startBtn.style.opacity = "0";
@@ -803,7 +780,6 @@ function activateEvents() {
             startBtn.style.display = "none";
         }, 400);
 
-        // Show universal central dice
         const centerDiceBtn = document.getElementById("center-dice");
         const centerDiceIcon = centerDiceBtn?.querySelector("i");
         if (centerDiceBtn) centerDiceBtn.style.display = "flex";
@@ -813,7 +789,6 @@ function activateEvents() {
                 THEME_COLORS[ludoBoard.currentTurn.color].solid;
         }
 
-        // Hide player count selector & pre-game pawn shape picker
         const countSelector = document.getElementById("player-count-selector");
         if (countSelector) countSelector.classList.add("hidden-selector");
 
@@ -852,24 +827,17 @@ function activateEvents() {
     });
 }
 
-// Initial Board Landmarks & Live Background Render on Page Load
 renderBoard();
 
-/* =========================================================
-   Live Atmospheric Background Controller
-   Continuously cycles hue variable (--bg-hue) from 0 to 255
-   over a relaxing, long duration (~75s)
-   ========================================================= */
 function initLiveAtmosphericBackground() {
     let currentHue = 0;
-    const cycleDurationMs = 75000; // 75 seconds for a complete 0 -> 255 cycle
+    const cycleDurationMs = 60000;
     let previousTimestamp = performance.now();
 
     function updateLiveHue(timestamp) {
         const elapsed = timestamp - previousTimestamp;
         previousTimestamp = timestamp;
 
-        // Advance hue smoothly from 0 to 255
         currentHue = (currentHue + (elapsed / cycleDurationMs) * 255) % 255;
         document.documentElement.style.setProperty(
             "--bg-hue",
