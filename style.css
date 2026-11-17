@@ -17,7 +17,63 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+/* =========================================================
+   Live Atmospheric Dual-Tone Background Custom Properties
+   ========================================================= */
+
+@property --bg-hue {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+
 :root {
+    /* Dynamic Hue Variable (Cycles from 0 to 255 over time) */
+    --bg-hue: 0;
+
+    /* Scaled Hue in Degrees (0 - 360deg mapped accurately from 0 - 255) */
+    --bg-hue-deg: calc(var(--bg-hue) * 360deg / 255);
+
+    /* Primary Dual-Tone Colors: Luminous Light Core to Deep Midnight Outer */
+    --bg-tone-light: hsla(
+        calc(var(--bg-hue) * 360 / 255),
+        84%,
+        68%,
+        0.52
+    );
+    --bg-tone-mid: hsla(
+        calc((var(--bg-hue) * 360 / 255) + 16),
+        80%,
+        38%,
+        0.72
+    );
+    --bg-tone-dark: hsla(
+        calc((var(--bg-hue) * 360 / 255) + 32),
+        82%,
+        12%,
+        0.94
+    );
+
+    /* Secondary Dual-Tone Colors: Counter-Orbital Harmonic Bloom */
+    --bg-tone-light-2: hsla(
+        calc((var(--bg-hue) * 360 / 255) + 48),
+        86%,
+        64%,
+        0.36
+    );
+    --bg-tone-mid-2: hsla(
+        calc((var(--bg-hue) * 360 / 255) + 64),
+        80%,
+        32%,
+        0.58
+    );
+    --bg-tone-dark-2: hsla(
+        calc((var(--bg-hue) * 360 / 255) + 80),
+        84%,
+        10%,
+        0.88
+    );
+
     /* Glassmorphism Global Controls */
     --glass-alpha: 0.22;
     --glass-surface: rgba(255, 255, 255, var(--glass-alpha));
@@ -40,7 +96,7 @@
     --theme-green-rgb: 16, 185, 129;
 
     /* 4 Standard Board & Pixel Colors (Controlled Alpha) */
-    --color-alpha: 0.38;
+    --color-alpha: 0.6;
     --red: rgba(var(--theme-red-rgb), var(--color-alpha));
     --yellow: rgba(var(--theme-yellow-rgb), var(--color-alpha));
     --blue: rgba(var(--theme-blue-rgb), var(--color-alpha));
@@ -53,18 +109,10 @@
 }
 
 body {
+    position: relative;
     width: 100%;
     min-height: 100vh;
-    background-color: #424242;
-    background-image:
-        radial-gradient(
-            ellipse at 50% 12%,
-            rgba(30, 41, 59, 0.45),
-            rgba(15, 23, 42, 0.85)
-        ),
-        linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.65));
-    background-size: cover;
-    background-position: center;
+    background-color: #080c16;
     overflow-x: hidden;
     display: flex;
     justify-content: center;
@@ -74,10 +122,128 @@ body {
 }
 
 /* =========================================================
+   Live Atmospheric Dual-Tone Background & Revolving Ellipse
+   ========================================================= */
+
+.live-bg-container {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+    background-color: #080c16;
+    animation: liveHueShiftCSS 75s linear infinite;
+}
+
+/* Revolving Ellipse Layers (Hardware Accelerated) */
+.live-bg-ellipse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 175vmax;
+    height: 175vmax;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* Primary Revolving Dual-Tone Radial Ellipse */
+.live-bg-primary {
+    background: radial-gradient(
+        ellipse 65% 38% at 50% 50%,
+        var(--bg-tone-light) 0%,
+        var(--bg-tone-mid) 42%,
+        var(--bg-tone-dark) 72%,
+        rgba(8, 12, 22, 0.98) 100%
+    );
+    animation: liveRevolvePrimary 38s linear infinite;
+}
+
+/* Secondary Revolving Harmonic Ellipse (Reverses & Blends) */
+.live-bg-secondary {
+    background: radial-gradient(
+        ellipse 38% 66% at 50% 50%,
+        var(--bg-tone-light-2) 0%,
+        var(--bg-tone-mid-2) 44%,
+        var(--bg-tone-dark-2) 76%,
+        transparent 100%
+    );
+    mix-blend-mode: screen;
+    opacity: 0.65;
+    animation: liveRevolveSecondary 52s linear infinite reverse;
+}
+
+/* Contrast Vignette & Protective Tint for Game Elements */
+.live-bg-vignette {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(15, 23, 42, 0.22) 0%,
+            rgba(11, 17, 32, 0.58) 60%,
+            rgba(8, 12, 22, 0.9) 100%
+        ),
+        linear-gradient(rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.45));
+    pointer-events: none;
+}
+
+/* Primary Ellipse Revolution + Organic Pulsing Breathing Effect */
+@keyframes liveRevolvePrimary {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+    25% {
+        transform: translate(-52%, -49%) rotate(90deg) scale(1.05);
+    }
+    50% {
+        transform: translate(-50%, -52%) rotate(180deg) scale(0.98);
+    }
+    75% {
+        transform: translate(-48%, -50%) rotate(270deg) scale(1.04);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) scale(1);
+    }
+}
+
+/* Secondary Counter-Revolving Ellipse (Harmonic Orbital Drift) */
+@keyframes liveRevolveSecondary {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+    33% {
+        transform: translate(-49%, -53%) rotate(120deg) scale(1.07);
+    }
+    66% {
+        transform: translate(-52%, -48%) rotate(240deg) scale(0.96);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) scale(1);
+    }
+}
+
+/* CSS Fallback Keyframe for Variable Hue Changing from 0 to 255 */
+@keyframes liveHueShiftCSS {
+    0% {
+        --bg-hue: 0;
+    }
+    100% {
+        --bg-hue: 255;
+    }
+}
+
+/* =========================================================
    Main Responsive Game Layout (3 Columns Desktop)
    ========================================================= */
 
 .game-layout {
+    position: relative;
+    z-index: 1;
     width: 100%;
     max-width: 1680px;
     min-height: 100vh;
@@ -317,8 +483,8 @@ body {
     height: calc(var(--cell-size) * 1.5);
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.36),
-        rgba(255, 255, 255, 0.1)
+        rgba(255, 255, 255, 0.4),
+        rgba(105, 105, 105, 0.4)
     );
     border: 1.5px solid rgba(255, 255, 255, 0.85);
     box-shadow:
@@ -351,8 +517,8 @@ body {
     position: relative;
     width: var(--cell-size);
     height: var(--cell-size);
-    background-color: rgba(255, 255, 255, 0.22);
-    border: 1px solid rgba(15, 23, 42, 0.18);
+    background-color: rgba(255, 255, 255, 0.45);
+    border: 1.5px solid rgba(48, 48, 48, 0.36);
     border-radius: calc(var(--cell-size) * 0.12);
     display: flex;
     justify-content: center;
@@ -364,8 +530,8 @@ body {
 }
 
 .pxls.safe-highlight {
-    border-width: 1.5px;
-    border-color: rgba(15, 23, 42, 0.45);
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.45);
 }
 
 /* Home Paths & Colored Starting Pixels */

@@ -852,5 +852,34 @@ function activateEvents() {
     });
 }
 
-// Initial Board Landmarks Render on Page Load
+// Initial Board Landmarks & Live Background Render on Page Load
 renderBoard();
+
+/* =========================================================
+   Live Atmospheric Background Controller
+   Continuously cycles hue variable (--bg-hue) from 0 to 255
+   over a relaxing, long duration (~75s)
+   ========================================================= */
+function initLiveAtmosphericBackground() {
+    let currentHue = 0;
+    const cycleDurationMs = 75000; // 75 seconds for a complete 0 -> 255 cycle
+    let previousTimestamp = performance.now();
+
+    function updateLiveHue(timestamp) {
+        const elapsed = timestamp - previousTimestamp;
+        previousTimestamp = timestamp;
+
+        // Advance hue smoothly from 0 to 255
+        currentHue = (currentHue + (elapsed / cycleDurationMs) * 255) % 255;
+        document.documentElement.style.setProperty(
+            "--bg-hue",
+            currentHue.toFixed(3),
+        );
+
+        requestAnimationFrame(updateLiveHue);
+    }
+
+    requestAnimationFrame(updateLiveHue);
+}
+
+initLiveAtmosphericBackground();
