@@ -13,50 +13,14 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-@property --bg-hue {
-    syntax: "<number>";
-    inherits: true;
-    initial-value: 0;
-}
-
 :root {
-    --bg-hue: 0;
-    --bg-hue-deg: calc(var(--bg-hue) * 360deg / 255);
-    --bg-tone-light: hsla(calc(var(--bg-hue) * 360 / 255), 84%, 68%, 0.52);
-    --bg-tone-mid: hsla(calc((var(--bg-hue) * 360 / 255) + 16), 80%, 38%, 0.72);
-    --bg-tone-dark: hsla(
-        calc((var(--bg-hue) * 360 / 255) + 32),
-        82%,
-        12%,
-        0.94
-    );
-
-    --bg-tone-light-2: hsla(
-        calc((var(--bg-hue) * 360 / 255) + 48),
-        86%,
-        64%,
-        0.36
-    );
-    --bg-tone-mid-2: hsla(
-        calc((var(--bg-hue) * 360 / 255) + 64),
-        80%,
-        32%,
-        0.58
-    );
-    --bg-tone-dark-2: hsla(
-        calc((var(--bg-hue) * 360 / 255) + 80),
-        84%,
-        10%,
-        0.88
-    );
-
     /* Glassmorphism Global Controls */
     --glass-alpha: 0.22;
     --glass-surface: rgba(255, 255, 255, var(--glass-alpha));
     --glass-surface-hover: rgba(255, 255, 255, 0.32);
-    --glass-blur: 24px;
-    --glass-border-light: rgba(255, 255, 255, 0.65);
-    --glass-border-dark: rgba(255, 255, 255, 0.2);
+    --glass-blur: 16px;
+    --glass-border-light: rgba(255, 255, 255, 0.45);
+    --glass-border-dark: rgba(255, 255, 255, 0.15);
 
     /* 4 Standard Theme Colors (Solid & Distinct) */
     --theme-red: #ef4444;
@@ -65,14 +29,14 @@
     --theme-yellow: #f59e0b;
     --theme-yellow-rgb: 245, 158, 11;
 
-    --theme-blue: #3125a1;
-    --theme-blue-rgb: 37, 12, 235;
+    --theme-blue: #3b82f6;
+    --theme-blue-rgb: 59, 130, 246;
 
     --theme-green: #10b981;
     --theme-green-rgb: 16, 185, 129;
 
     /* 4 Standard Board & Pixel Colors (Controlled Alpha) */
-    --color-alpha: 0.6;
+    --color-alpha: 0.65;
     --red: rgba(var(--theme-red-rgb), var(--color-alpha));
     --yellow: rgba(var(--theme-yellow-rgb), var(--color-alpha));
     --blue: rgba(var(--theme-blue-rgb), var(--color-alpha));
@@ -88,118 +52,22 @@ body {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background-color: #080c16;
+    background-color: #070913;
+    background-image: radial-gradient(
+        ellipse 90% 70% at 50% 35%,
+        #2a144e 0%,
+        #130e26 55%,
+        #070913 100%
+    );
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
     overflow-x: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #0f172a;
+    color: #f8fafc;
     -webkit-font-smoothing: antialiased;
-}
-
-.live-bg-container {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-    background-color: #080c16;
-    animation: liveHueShiftCSS 60s linear infinite;
-}
-
-.live-bg-ellipse {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 175vmax;
-    height: 175vmax;
-    border-radius: 50%;
-    pointer-events: none;
-    will-change: transform;
-}
-
-.live-bg-primary {
-    background: radial-gradient(
-        ellipse 65% 38% at 50% 50%,
-        var(--bg-tone-light) 0%,
-        var(--bg-tone-mid) 42%,
-        var(--bg-tone-dark) 72%,
-        rgba(8, 12, 22, 0.98) 100%
-    );
-    animation: liveRevolvePrimary 38s linear infinite;
-}
-
-.live-bg-secondary {
-    background: radial-gradient(
-        ellipse 38% 66% at 50% 50%,
-        var(--bg-tone-light-2) 0%,
-        var(--bg-tone-mid-2) 44%,
-        var(--bg-tone-dark-2) 76%,
-        transparent 100%
-    );
-    mix-blend-mode: screen;
-    opacity: 0.65;
-    animation: liveRevolveSecondary 52s linear infinite reverse;
-}
-
-.live-bg-vignette {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background:
-        radial-gradient(
-            circle at 50% 50%,
-            rgba(15, 23, 42, 0.22) 0%,
-            rgba(11, 17, 32, 0.58) 60%,
-            rgba(8, 12, 22, 0.9) 100%
-        ),
-        linear-gradient(rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.45));
-    pointer-events: none;
-}
-
-@keyframes liveRevolvePrimary {
-    0% {
-        transform: translate(-50%, -50%) rotate(0deg) scale(1);
-    }
-    25% {
-        transform: translate(-52%, -49%) rotate(90deg) scale(1.05);
-    }
-    50% {
-        transform: translate(-50%, -52%) rotate(180deg) scale(0.98);
-    }
-    75% {
-        transform: translate(-48%, -50%) rotate(270deg) scale(1.04);
-    }
-    100% {
-        transform: translate(-50%, -50%) rotate(360deg) scale(1);
-    }
-}
-
-@keyframes liveRevolveSecondary {
-    0% {
-        transform: translate(-50%, -50%) rotate(0deg) scale(1);
-    }
-    33% {
-        transform: translate(-49%, -53%) rotate(120deg) scale(1.07);
-    }
-    66% {
-        transform: translate(-52%, -48%) rotate(240deg) scale(0.96);
-    }
-    100% {
-        transform: translate(-50%, -50%) rotate(360deg) scale(1);
-    }
-}
-
-@keyframes liveHueShiftCSS {
-    0% {
-        --bg-hue: 0;
-    }
-    100% {
-        --bg-hue: 255;
-    }
 }
 
 .game-layout {
@@ -254,25 +122,25 @@ body {
     min-height: 45px;
     max-height: 45px;
     flex: 1;
-    padding: 10px 30px;
+    padding: 10px 24px;
     border-radius: 16px;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.32),
-        rgba(255, 255, 255, 0.16)
-    );
-    border: 1px solid var(--glass-border-light);
-    border-top: 1.5px solid rgba(255, 255, 255, 0.85);
-    border-left: 1.5px solid rgba(255, 255, 255, 0.75);
+    background: rgba(15, 23, 42, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.45);
     box-shadow:
-        0 8px 24px -2px rgba(15, 23, 42, 0.18),
-        inset 0 1px 2px rgba(255, 255, 255, 0.7);
-    color: #0f172a;
+        0 6px 20px rgba(0, 0, 0, 0.35),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    color: #f1f5f9;
     font-size: clamp(16px, 1.15vw, 20px);
     font-weight: 600;
     text-align: center;
     letter-spacing: 0.25px;
     transition: all 250ms ease;
+}
+
+.status-banner strong {
+    color: #38bdf8;
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
 }
 
 .player-count-selector {
@@ -284,16 +152,12 @@ body {
     gap: 6px;
     padding: 6px 8px;
     border-radius: 16px;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.3),
-        rgba(255, 255, 255, 0.14)
-    );
-    border: 1px solid var(--glass-border-light);
-    border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+    background: rgba(15, 23, 42, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.45);
     box-shadow:
-        0 8px 24px -2px rgba(15, 23, 42, 0.16),
-        inset 0 1px 2px rgba(255, 255, 255, 0.7);
+        0 6px 20px rgba(0, 0, 0, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25);
     flex-shrink: 0;
     transition:
         opacity 250ms ease,
@@ -306,27 +170,28 @@ body {
 
 .count-btn {
     padding: 6px 14px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.45);
-    color: #0f172a;
+    background: rgba(30, 41, 59, 0.85);
+    color: #cbd5e1;
     font-size: 14px;
     font-weight: 800;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     transition: all 180ms ease;
 }
 
 .count-btn:hover {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(51, 65, 85, 0.95);
+    color: #ffffff;
     transform: translateY(-1px);
 }
 
 .count-btn.active {
-    background: #0f172a;
-    color: #ffffff;
-    border-color: #0f172a;
-    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.35);
+    background: #38bdf8;
+    color: #020617;
+    border-color: #38bdf8;
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.55);
 }
 
 .container {
@@ -343,17 +208,13 @@ body {
     justify-content: space-between;
     align-items: center;
     border-radius: calc(var(--cell-size) * 0.5);
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.22),
-        rgba(255, 255, 255, 0.08)
-    );
-    border: 2px solid rgba(255, 255, 255, 0.7);
-    border-top: 2px solid rgba(255, 255, 255, 0.9);
-    border-left: 2px solid rgba(255, 255, 255, 0.85);
+    background: rgba(15, 23, 42, 0.88);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top: 2px solid rgba(255, 255, 255, 0.6);
+    border-left: 2px solid rgba(255, 255, 255, 0.5);
     box-shadow:
-        0 20px 50px -8px rgba(15, 23, 42, 0.35),
-        inset 0 1px 2px rgba(255, 255, 255, 0.6);
+        0 20px 50px -8px rgba(0, 0, 0, 0.55),
+        inset 0 1px 2px rgba(255, 255, 255, 0.25);
 }
 
 .upper-room,
@@ -468,21 +329,88 @@ body {
     position: relative;
     width: var(--cell-size);
     height: var(--cell-size);
-    background-color: rgba(255, 255, 255, 0.45);
-    border: 1.5px solid rgba(48, 48, 48, 0.36);
-    border-radius: calc(var(--cell-size) * 0.12);
+    background-color: rgba(255, 255, 255, 0.76);
+    border: 1px solid rgba(15, 23, 42, 0.3);
+    border-radius: calc(var(--cell-size) * 0.16);
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.85),
+        0 1px 2px rgba(0, 0, 0, 0.12);
     transition:
-        background-color 200ms ease,
-        border-color 200ms ease;
+        background-color 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease;
 }
 
 .pxls.safe-highlight {
-    border-width: 2px;
-    border-color: rgba(255, 255, 255, 0.45);
+    border-width: 1.5px;
+    border-color: rgba(245, 158, 11, 0.75);
+    box-shadow:
+        inset 0 0 6px rgba(245, 158, 11, 0.25),
+        0 0 8px rgba(245, 158, 11, 0.35);
+}
+
+/* Pixel Glow & Highlight When Occupied by Pawns */
+.pxls.has-pawn,
+.rooms > div.has-pawn,
+.pxls:has(.board-pawn) {
+    z-index: 4;
+    border-color: rgba(255, 255, 255, 0.95);
+    box-shadow:
+        0 0 10px 1px rgba(255, 255, 255, 0.6),
+        inset 0 0 6px rgba(255, 255, 255, 0.45);
+}
+
+.pxls.pawn-red,
+.pxls:has(.board-pawn[data-color="red"]) {
+    border-color: #ef4444;
+    box-shadow:
+        0 0 12px 2px rgba(239, 68, 68, 0.8),
+        inset 0 0 6px rgba(239, 68, 68, 0.45);
+}
+
+.pxls.pawn-yellow,
+.pxls:has(.board-pawn[data-color="yellow"]) {
+    border-color: #f59e0b;
+    box-shadow:
+        0 0 12px 2px rgba(245, 158, 11, 0.8),
+        inset 0 0 6px rgba(245, 158, 11, 0.45);
+}
+
+.pxls.pawn-blue,
+.pxls:has(.board-pawn[data-color="blue"]) {
+    border-color: #3b82f6;
+    box-shadow:
+        0 0 12px 2px rgba(59, 130, 246, 0.8),
+        inset 0 0 6px rgba(59, 130, 246, 0.45);
+}
+
+.pxls.pawn-green,
+.pxls:has(.board-pawn[data-color="green"]) {
+    border-color: #10b981;
+    box-shadow:
+        0 0 12px 2px rgba(16, 185, 129, 0.8),
+        inset 0 0 6px rgba(16, 185, 129, 0.45);
+}
+
+.pxls.has-movable-pawn,
+.pxls:has(.board-pawn.movable-pawn) {
+    animation: pixelMovableGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes pixelMovableGlow {
+    0% {
+        box-shadow:
+            0 0 8px 1px rgba(255, 255, 255, 0.6),
+            inset 0 0 4px rgba(255, 255, 255, 0.4);
+    }
+    100% {
+        box-shadow:
+            0 0 16px 4px rgba(255, 255, 255, 0.95),
+            inset 0 0 8px rgba(255, 255, 255, 0.7);
+    }
 }
 
 #path2 #pxl100,
@@ -720,34 +648,35 @@ body {
     font-weight: 800;
     font-size: clamp(18px, calc(var(--cell-size) * 0.62), 40px);
     letter-spacing: 2px;
-    border: 0.5px solid rgba(255, 255, 255, 0.75);
+    border: 2px solid rgba(255, 255, 255, 0.85);
     border-radius: 50%;
     background: radial-gradient(
         circle,
-        rgba(255, 255, 255, 0.4) 0%,
-        rgba(255, 255, 255, 0.12) 100%
+        #6366f1 0%,
+        #4338ca 100%
     );
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     box-shadow:
-        0 10px 32px rgba(15, 23, 42, 0.28),
-        inset 0 0 16px rgba(255, 255, 255, 0.7);
-    color: #0f172a;
+        0 0 24px rgba(99, 102, 241, 0.7),
+        0 8px 24px rgba(0, 0, 0, 0.45),
+        inset 0 0 10px rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     cursor: pointer;
     z-index: 25;
-    transition: all ease-out 0.3s;
+    transition: all ease-out 0.25s;
 }
 
 #start-btn:hover {
-    border-radius: 12px;
+    border-radius: 14px;
     background: radial-gradient(
         circle,
-        rgba(255, 255, 255, 0.6) 0%,
-        rgba(255, 255, 255, 0.25) 100%
+        #818cf8 0%,
+        #4f46e5 100%
     );
     box-shadow:
-        0 14px 40px rgba(15, 23, 42, 0.35),
-        inset 0 0 20px rgba(255, 255, 255, 0.85);
+        0 0 32px rgba(129, 140, 248, 0.85),
+        0 8px 28px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
 }
 
 .tile-landmark {
@@ -850,17 +779,12 @@ body {
 .player {
     position: relative;
     width: 100%;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.28),
-        rgba(255, 255, 255, 0.12)
-    );
-    border: 1px solid var(--glass-border-light);
-    border-top: 1.5px solid rgba(255, 255, 255, 0.85);
-    border-left: 1.5px solid rgba(255, 255, 255, 0.75);
+    background: rgba(17, 24, 39, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.35);
     box-shadow:
-        0 14px 34px -4px rgba(15, 23, 42, 0.16),
-        inset 0 1px 1px rgba(255, 255, 255, 0.6);
+        0 14px 34px -4px rgba(0, 0, 0, 0.35),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     padding: 16px 18px;
     display: flex;
@@ -883,9 +807,9 @@ body {
 .player.active-turn {
     border-color: var(--active-solid, rgba(255, 255, 255, 0.8));
     box-shadow:
-        0 0 24px -2px var(--active-glow, rgba(15, 23, 42, 0.3)),
-        0 16px 40px -6px rgba(15, 23, 42, 0.24),
-        inset 0 1px 2px rgba(255, 255, 255, 0.7);
+        0 0 20px 2px var(--active-glow, rgba(56, 189, 248, 0.45)),
+        0 16px 40px -6px rgba(0, 0, 0, 0.5),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 .player-header {
@@ -906,7 +830,7 @@ body {
     height: 10px;
     border-radius: 50%;
     display: inline-block;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 #player1 .player-dot {
@@ -929,30 +853,34 @@ body {
 }
 
 #player1 h1 {
-    color: var(--theme-red);
+    color: #f87171;
+    text-shadow: 0 0 12px rgba(239, 68, 68, 0.35);
 }
 #player2 h1 {
-    color: var(--theme-yellow);
+    color: #fbbf24;
+    text-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
 }
 #player3 h1 {
-    color: var(--theme-blue);
+    color: #60a5fa;
+    text-shadow: 0 0 12px rgba(59, 130, 246, 0.35);
 }
 #player4 h1 {
-    color: var(--theme-green);
+    color: #34d399;
+    text-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
 }
 
 .player hr {
     border: none;
-    border-top: 1px solid rgba(15, 23, 42, 0.14);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .player-info {
     width: 32px;
     height: 32px;
-    background: rgba(255, 255, 255, 0.55);
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+    background: rgba(30, 41, 59, 0.85);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     display: none;
     justify-content: center;
     align-items: center;
@@ -965,7 +893,7 @@ body {
 
 .player-info:hover {
     transform: scale(1.12);
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(51, 65, 85, 0.95);
 }
 
 .player-info i {
@@ -973,16 +901,16 @@ body {
 }
 
 #info1 {
-    color: var(--theme-red);
+    color: #f87171;
 }
 #info2 {
-    color: var(--theme-yellow);
+    color: #fbbf24;
 }
 #info3 {
-    color: var(--theme-blue);
+    color: #60a5fa;
 }
 #info4 {
-    color: var(--theme-green);
+    color: #34d399;
 }
 
 .player-controls-row {
@@ -1000,10 +928,10 @@ body {
 
 .pawns button {
     height: 46px;
-    border: 1px solid rgba(255, 255, 255, 0.65);
-    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(30, 41, 59, 0.7);
     border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -1020,24 +948,28 @@ body {
 }
 
 #player1 .pawns button i {
-    color: var(--theme-red);
+    color: #f87171;
+    filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.5));
 }
 #player2 .pawns button i {
-    color: var(--theme-yellow);
+    color: #fbbf24;
+    filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.5));
 }
 #player3 .pawns button i {
-    color: var(--theme-blue);
+    color: #60a5fa;
+    filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.5));
 }
 #player4 .pawns button i {
-    color: var(--theme-green);
+    color: #34d399;
+    filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.5));
 }
 
 .pawns button.blink {
-    background-color: rgba(255, 255, 255, 0.7);
-    border-color: var(--active-solid, rgba(15, 23, 42, 0.5));
+    background-color: rgba(45, 55, 72, 0.95);
+    border-color: var(--active-solid, #38bdf8);
     box-shadow:
-        0 0 14px 2px var(--active-glow, rgba(15, 23, 42, 0.3)),
-        0 4px 12px rgba(15, 23, 42, 0.16);
+        0 0 16px 2px var(--active-glow, rgba(56, 189, 248, 0.5)),
+        0 4px 12px rgba(0, 0, 0, 0.3);
     animation: pawnBtnPulse 0.8s ease-in-out infinite;
 }
 
@@ -1065,26 +997,27 @@ body {
 
 .texts h6 {
     font-size: clamp(14px, 1.1vw, 17px);
-    font-weight: 700;
-    color: #0f172a;
+    font-weight: 600;
+    color: #cbd5e1;
     line-height: 1.45;
     letter-spacing: 0.2px;
+}
+
+.texts h6 b {
+    color: #ffffff;
+    font-weight: 700;
 }
 
 .dice {
     width: clamp(84px, 7.5vw, 120px);
     height: clamp(80px, 7.2vw, 112px);
     flex-shrink: 0;
-    border: 1.5px solid rgba(255, 255, 255, 0.75);
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.45),
-        rgba(255, 255, 255, 0.2)
-    );
+    border: 1.5px solid rgba(255, 255, 255, 0.28);
+    background: rgba(30, 41, 59, 0.85);
     border-radius: 16px;
     box-shadow:
-        0 6px 18px rgba(15, 23, 42, 0.12),
-        inset 0 1px 2px rgba(255, 255, 255, 0.6);
+        0 6px 18px rgba(0, 0, 0, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.2);
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -1106,23 +1039,24 @@ body {
 }
 
 #player1 .dice i {
-    color: var(--theme-red);
+    color: #f87171;
 }
 #player2 .dice i {
-    color: var(--theme-yellow);
+    color: #fbbf24;
 }
 #player3 .dice i {
-    color: var(--theme-blue);
+    color: #60a5fa;
 }
 #player4 .dice i {
-    color: var(--theme-green);
+    color: #34d399;
 }
 
 .dice.blink {
-    animation: playerDiceBlink 2s linear infinite;
+    border-color: var(--active-solid, #38bdf8);
     box-shadow:
-        0 0 18px 2px var(--active-glow, rgba(15, 23, 42, 0.25)),
-        0 6px 20px rgba(15, 23, 42, 0.18);
+        0 0 20px 3px var(--active-glow, rgba(56, 189, 248, 0.6)),
+        0 6px 20px rgba(0, 0, 0, 0.4);
+    animation: playerDiceBlink 2s linear infinite;
 }
 
 @keyframes playerDiceBlink {
@@ -1150,10 +1084,10 @@ body {
 
 .pieces button {
     height: 38px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(30, 41, 59, 0.7);
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -1168,16 +1102,20 @@ body {
 }
 
 .pieces button:hover {
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(51, 65, 85, 0.9);
     transform: scale(1.1);
 }
 
 .pieces button.active-shape {
-    background: rgba(255, 255, 255, 0.85);
-    border-color: #0f172a;
+    background: #38bdf8;
+    border-color: #38bdf8;
     box-shadow:
-        0 0 0 2px #0f172a,
-        0 3px 8px rgba(15, 23, 42, 0.2);
+        0 0 12px rgba(56, 189, 248, 0.6),
+        0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.pieces button.active-shape i {
+    color: #020617 !important;
 }
 
 #player1 .pieces button i {
@@ -1221,9 +1159,7 @@ body {
     position: relative;
     width: min(680px, 92vw);
     padding: 28px 24px;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(28px) saturate(190%);
-    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    background: rgba(255, 255, 255, 0.96);
     border: 2px solid #0f172a;
     border-radius: 24px;
     box-shadow:
@@ -1464,7 +1400,7 @@ body {
         padding: 8px 10px;
         gap: 6px;
         border-radius: 14px;
-        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
     }
 
     .player-header {
@@ -1496,7 +1432,7 @@ body {
     .player-info {
         width: 24px;
         height: 24px;
-        box-shadow: 0 1px 4px rgba(15, 23, 42, 0.1);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
     }
 
     .player-info i {

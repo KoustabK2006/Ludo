@@ -476,7 +476,15 @@ function highlightActivePlayer(oldPlayerId, newPlayerId, newColor) {
 function renderBoard() {
     document.querySelectorAll(".pxls, .rooms > div").forEach((cell) => {
         cell.innerHTML = "";
-        cell.classList.remove("safe-highlight");
+        cell.classList.remove(
+            "safe-highlight",
+            "has-pawn",
+            "pawn-red",
+            "pawn-yellow",
+            "pawn-blue",
+            "pawn-green",
+            "has-movable-pawn"
+        );
     });
 
     const piecesByPos = {};
@@ -520,6 +528,20 @@ function renderBoard() {
         const cellId = `pxl${String(posStr).padStart(3, "0")}`;
         const cell = document.getElementById(cellId);
         if (!cell) continue;
+
+        if (entries.length > 0) {
+            cell.classList.add("has-pawn", `pawn-${entries[0].pawn.color}`);
+            const hasMovable = entries.some(
+                ({ pawn, idx }) =>
+                    hasRolled &&
+                    LB &&
+                    LB.currentTurn.color === pawn.color &&
+                    movablePawns[idx],
+            );
+            if (hasMovable) {
+                cell.classList.add("has-movable-pawn");
+            }
+        }
 
         const stack = document.createElement("div");
         const countClass = Math.min(entries.length, 4);
@@ -827,27 +849,5 @@ function activateEvents() {
     });
 }
 
+// Initial Board Landmarks Render on Page Load
 renderBoard();
-
-function initLiveAtmosphericBackground() {
-    let currentHue = 0;
-    const cycleDurationMs = 60000;
-    let previousTimestamp = performance.now();
-
-    function updateLiveHue(timestamp) {
-        const elapsed = timestamp - previousTimestamp;
-        previousTimestamp = timestamp;
-
-        currentHue = (currentHue + (elapsed / cycleDurationMs) * 255) % 255;
-        document.documentElement.style.setProperty(
-            "--bg-hue",
-            currentHue.toFixed(3),
-        );
-
-        requestAnimationFrame(updateLiveHue);
-    }
-
-    requestAnimationFrame(updateLiveHue);
-}
-
-initLiveAtmosphericBackground();
