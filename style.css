@@ -296,7 +296,7 @@ body {
     height: calc(var(--cell-size) * 1.5);
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.4),
+        rgba(255, 255, 255, 0.75),
         rgba(105, 105, 105, 0.4)
     );
     border: 1.5px solid rgba(255, 255, 255, 0.85);
@@ -608,7 +608,7 @@ body {
 }
 
 .center-dice.rolling i {
-    animation: diceRollSpin 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: diceRollSpin 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes centerDicePulse {
