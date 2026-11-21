@@ -124,10 +124,12 @@ let pawnProperties = structuredClone(defaultPawnProperties);
 let activePopUps = [false, false, false, false];
 let lastStatusMessage = "";
 
-function setStatus(htmlMessage) {
-    lastStatusMessage = htmlMessage;
+function setStatus(message) {
+    lastStatusMessage = message;
     const banner = document.getElementById("status-banner");
-    if (banner) banner.innerHTML = htmlMessage;
+    if (banner) {
+        banner.innerHTML = `<span class="status-text">${message}</span>`;
+    }
 }
 
 function capitalize(str) {
@@ -293,8 +295,8 @@ function handleDiceRoll() {
     if (rolledNumber === 18 || !movablePawns.includes(true)) {
         const reason =
             rolledNumber === 18
-                ? `<strong>Player ${oldTurn.playerId} (${capitalize(oldTurn.color)})</strong> rolled three 6s in a row — Turn forfeited!`
-                : `<strong>Player ${oldTurn.playerId} (${capitalize(oldTurn.color)})</strong> rolled <strong>${rolledNumber}</strong> — No valid moves!`;
+                ? `Player ${oldTurn.playerId} (${capitalize(oldTurn.color)}) rolled 6,6,6 — Turn lost!`
+                : `Player ${oldTurn.playerId} (${capitalize(oldTurn.color)}) rolled ${rolledNumber} — No moves!`;
 
         // Force availableTurns to 0 so a locked 6 never soft-locks the turn
         LB.currentTurn.availableTurns = 0;
@@ -316,7 +318,7 @@ function handleDiceRoll() {
         );
         renderBoard();
         setStatus(
-            `${reason} &nbsp;|&nbsp; <strong>Player ${LB.currentTurn.playerId} (${capitalize(LB.currentTurn.color)})</strong>'s turn to roll.`,
+            `${reason} Player ${LB.currentTurn.playerId} (${capitalize(LB.currentTurn.color)})'s turn!`,
         );
         return;
     }
@@ -350,7 +352,7 @@ function handleDiceRoll() {
 
     renderBoard();
     setStatus(
-        `<strong>Player ${LB.currentTurn.playerId} (${capitalize(LB.currentTurn.color)})</strong> rolled <strong>${rolledNumber}</strong> — Click a glowing pawn to move!`,
+        `Player ${LB.currentTurn.playerId} (${capitalize(LB.currentTurn.color)}) rolled ${rolledNumber} — Click a pawn to move!`,
     );
 }
 
@@ -454,11 +456,11 @@ function executePawnMove(color, finalPawnName) {
         );
         if (hadBonusTurn) {
             setStatus(
-                `Bonus roll! <strong>Player ${LB.currentTurn.playerId} (${capitalize(LB.currentTurn.color)})</strong> — Roll the dice again!`,
+                `Bonus roll! Player ${LB.currentTurn.playerId} (${capitalize(LB.currentTurn.color)}) rolls again!`,
             );
         } else {
             setStatus(
-                `<strong>Player ${LB.currentTurn.playerId} (${capitalize(LB.currentTurn.color)})</strong>'s turn — Click your dice to roll!`,
+                `Player ${LB.currentTurn.playerId} (${capitalize(LB.currentTurn.color)})'s turn — Roll the dice!`,
             );
         }
     }
@@ -742,7 +744,7 @@ function gameOver(board) {
     backdrop.classList.add("open");
     winModal.style.display = "flex";
     setStatus(
-        `🏆 Match complete! <strong>Player ${ranked[0].playerId} (${capitalize(ranked[0].color)})</strong> wins!`,
+        `🏆 Match complete! Player ${ranked[0].playerId} (${capitalize(ranked[0].color)}) wins!`,
     );
 }
 
@@ -875,19 +877,19 @@ function activateEvents() {
             ludoBoard.currentTurn.color,
         );
         setStatus(
-            `Game started! <strong>Player ${ludoBoard.currentTurn.playerId} (${capitalize(ludoBoard.currentTurn.color)})</strong> rolls first!`,
+            `Game started! Player ${ludoBoard.currentTurn.playerId} (${capitalize(ludoBoard.currentTurn.color)}) rolls first!`,
         );
     });
 
     LEM.on(LEMEvents.LudoKill, ({ killer, victim }) => {
         setStatus(
-            `⚔️ <strong>Player ${killer.playerId} (${capitalize(killer.color)})</strong> captured <strong>Player ${victim.playerId} (${capitalize(victim.color)})</strong>! (+50 pts)`,
+            `⚔️ Player ${killer.playerId} (${capitalize(killer.color)}) captured Player ${victim.playerId} (${capitalize(victim.color)})! (+50 pts)`,
         );
     });
 
     LEM.on(LEMEvents.LudoGoal, ({ piece }) => {
         setStatus(
-            `🎯 <strong>Player ${piece.playerId} (${capitalize(piece.color)})</strong> got a pawn home! (+100 pts)`,
+            `🎯 Player ${piece.playerId} (${capitalize(piece.color)}) got a pawn home! (+100 pts)`,
         );
     });
 
