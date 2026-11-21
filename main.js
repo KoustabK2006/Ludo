@@ -3,6 +3,7 @@
 let LB = null;
 let gameStarted = false;
 let selectedPlayerCount = 4;
+let selectedTokenCount = 4;
 
 let hasRolled = false;
 let rolledNumber = -1;
@@ -164,19 +165,52 @@ function updateActivePlayerCards(count) {
     }
 }
 
-// Player Count Selector & Pawn Icon Customizer
+// Player Count & Token Count Selectors
 
-document.querySelectorAll(".count-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-        if (gameStarted) return;
-        document
-            .querySelectorAll(".count-btn")
-            .forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        selectedPlayerCount = Number(btn.dataset.count);
-        updateActivePlayerCards(selectedPlayerCount);
+document
+    .querySelectorAll("#player-count-selector .count-btn")
+    .forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (gameStarted) return;
+            document
+                .querySelectorAll("#player-count-selector .count-btn")
+                .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            selectedPlayerCount = Number(btn.dataset.count);
+            updateActivePlayerCards(selectedPlayerCount);
+        });
     });
-});
+
+document
+    .querySelectorAll("#token-count-selector .token-count-btn")
+    .forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (gameStarted) return;
+            document
+                .querySelectorAll("#token-count-selector .token-count-btn")
+                .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            selectedTokenCount = Number(btn.dataset.tokens);
+            updateActivePawnSlots(selectedTokenCount);
+        });
+    });
+
+function updateActivePawnSlots(count) {
+    for (let id = 1; id <= 4; id++) {
+        const pawnsRow = document.querySelector(`#player${id} .pawns`);
+        if (pawnsRow) {
+            pawnsRow.style.setProperty("--token-count", count);
+        }
+        for (let j = 1; j <= 4; j++) {
+            const pawnBtn = document.querySelector(
+                `#player${id} .pawns .pawn${j}`,
+            );
+            if (pawnBtn) {
+                pawnBtn.style.display = j <= count ? "flex" : "none";
+            }
+        }
+    }
+}
 
 colors.forEach((color, colorIdx) => {
     for (let i = 1; i <= 6; i++) {
@@ -211,7 +245,7 @@ document.getElementById("start-btn").addEventListener("click", () => {
     LEM.clear();
     activateEvents();
     LB = new LudoBoard();
-    LB.init(getPlayersForCount(selectedPlayerCount));
+    LB.init(getPlayersForCount(selectedPlayerCount), selectedTokenCount);
 });
 
 function handleDiceRoll() {
@@ -772,6 +806,7 @@ document.getElementById("play-again-btn").addEventListener("click", () => {
     }
 
     updateActivePlayerCards(selectedPlayerCount);
+    updateActivePawnSlots(selectedTokenCount);
 
     const startBtn = document.getElementById("start-btn");
     startBtn.style.display = "flex";
@@ -781,11 +816,16 @@ document.getElementById("play-again-btn").addEventListener("click", () => {
 
     const countSelector = document.getElementById("player-count-selector");
     if (countSelector) countSelector.classList.remove("hidden-selector");
+    const tokenSelector = document.getElementById("token-count-selector");
+    if (tokenSelector) tokenSelector.classList.remove("hidden-selector");
+
+    const statusBanner = document.getElementById("status-banner");
+    if (statusBanner) {
+        statusBanner.classList.add("hidden-banner");
+        statusBanner.innerHTML = "";
+    }
 
     renderBoard();
-    setStatus(
-        `Choose token icons &amp; players, then press <strong>START</strong>`,
-    );
 });
 
 // Event Manager Subscriptions
@@ -815,6 +855,11 @@ function activateEvents() {
 
         const countSelector = document.getElementById("player-count-selector");
         if (countSelector) countSelector.classList.add("hidden-selector");
+        const tokenSelector = document.getElementById("token-count-selector");
+        if (tokenSelector) tokenSelector.classList.add("hidden-selector");
+
+        const statusBanner = document.getElementById("status-banner");
+        if (statusBanner) statusBanner.classList.remove("hidden-banner");
 
         document
             .querySelectorAll(".pieces")
@@ -851,5 +896,6 @@ function activateEvents() {
     });
 }
 
-// Initial Board Landmarks Render on Page Load
+// Initial Setup & Board Landmarks Render on Page Load
+updateActivePawnSlots(selectedTokenCount);
 renderBoard();

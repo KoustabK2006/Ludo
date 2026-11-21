@@ -11,7 +11,7 @@ class LudoBoard {
         this.isGameOver = false;
     }
 
-    async init(playerData) {
+    async init(playerData, tokensPerPlayer = 4) {
         if (!playerData || !playerData.length) return;
 
         for (let item of playerData) {
@@ -20,7 +20,7 @@ class LudoBoard {
 
             this.pieces[playerId] = {};
 
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= tokensPerPlayer; i++) {
                 this.pieces[playerId][color[0] + i] = new LudoPiece(
                     color,
                     String(color[0]) + i,

@@ -234,20 +234,18 @@
             <section class="board-section">
                 <div class="top-bar">
                     <div
-                        class="status-banner"
+                        class="status-banner hidden-banner"
                         id="status-banner"
                         role="status"
                         aria-live="polite"
-                    >
-                        Choose token icons &amp; players, then press
-                        <strong>START</strong>
-                    </div>
+                    ></div>
                     <div
-                        class="player-count-selector"
+                        class="player-count-selector selector-panel"
                         id="player-count-selector"
                         role="group"
                         aria-label="Number of players"
                     >
+                        <span class="selector-label"><i class="fa-solid fa-users"></i> Players</span>
                         <button type="button" class="count-btn" data-count="2">
                             2P
                         </button>
@@ -260,6 +258,30 @@
                             data-count="4"
                         >
                             4P
+                        </button>
+                    </div>
+                    <div
+                        class="token-count-selector selector-panel"
+                        id="token-count-selector"
+                        role="group"
+                        aria-label="Number of tokens per player"
+                    >
+                        <span class="selector-label"><i class="fa-solid fa-chess-pawn"></i> Tokens</span>
+                        <button type="button" class="token-count-btn count-btn" data-tokens="1">
+                            1
+                        </button>
+                        <button type="button" class="token-count-btn count-btn" data-tokens="2">
+                            2
+                        </button>
+                        <button type="button" class="token-count-btn count-btn" data-tokens="3">
+                            3
+                        </button>
+                        <button
+                            type="button"
+                            class="token-count-btn count-btn active"
+                            data-tokens="4"
+                        >
+                            4
                         </button>
                     </div>
                 </div>
